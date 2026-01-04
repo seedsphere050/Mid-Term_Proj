@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
@@ -18,7 +19,7 @@ class HelloAPI(APIView):
 #@authentication_classes([TokenAuthentication])
 #@permission_classes([IsAuthenticated])
 class WeatherAPI(APIView):
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request):
         lat = request.GET.get("lat")
