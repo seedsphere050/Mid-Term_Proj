@@ -9,7 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
-API_KEY = "7db07d71134b6c830342a867f6b5c793"
+from django.conf import settings
+API_KEY = settings.API_KEY
 
 class HelloAPI(APIView):
     def get(self, request):
