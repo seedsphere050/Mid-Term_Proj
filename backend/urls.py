@@ -19,8 +19,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/weather/', include('weather.urls')),  # weather endpoints
-    path('api/auth/', include('accounts.urls')),    # auth endpoints
+    path('api/', include('weather.urls')),
+    path('api/auth/', include('accounts.urls')),
+    path('api-auth/', include('rest_framework.urls')), 
+    path('api/recommend/', include('recommendations.urls')),
+ # <- This enables login in DRF UI
 ]
+
 
 
