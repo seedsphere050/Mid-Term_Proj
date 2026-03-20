@@ -90,3 +90,34 @@ def extract_weather_parameters(data,lat,lon):
         "rainfall": rainfall,
         "sunlight": sunlight,
     }
+
+def get_processed_weather_from_coords(lat, lon):
+    """
+    Fetch raw weather from OpenWeather API
+    and return processed weather parameters
+    """
+
+    url = "https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": API_KEY,
+        "units": "metric"
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    if response.status_code != 200:
+        return None
+
+    processed_weather = extract_weather_parameters(data, lat, lon)
+
+    # 🌱 Add soil info
+    state = get_state_from_lat_lon(lat, lon)
+    soil_type = STATE_SOIL_MAP.get(state, [])
+
+    processed_weather["soil_type"] = soil_type
+    processed_weather["state"] = state
+
+    return processed_weather

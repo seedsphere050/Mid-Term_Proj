@@ -1,51 +1,36 @@
-# from django.conf import settings
+from .models import Plant
 
-# def get_recommended_plants(temp, humidity, condition):
-#     collection = settings.PLANT_COLLECTION
+def recommend_plants(weather_data):
+    temp = weather_data["temperature"]["current"]
+    season = weather_data["season"]
+    rainfall = weather_data["rainfall"]
+    humidity = weather_data["humidity"]
+    sunlight = weather_data["sunlight"]
 
-#     query = {
-#         "min_temp": {"$lte": temp},
-#         "max_temp": {"$gte": temp},
-#         "min_humidity": {"$lte": humidity},
-#         "max_humidity": {"$gte": humidity},
-#         "suitable_climate": condition
-#     }
+    plants = Plant.objects.all()
+    recommended = []
 
-#     plants = collection.find(query)
+    for plant in plants:
+        # 1️⃣ Temperature check
+        if not (plant.min_temp <= temp <= plant.max_temp):
+            continue
 
-#     return [
-#         {
-#             "name": plant["name"],
-#             "category": plant["category"],
-#             "soil_type": plant["soil_type"]
-#         }
-#         for plant in plants
-#     ]
-from django.conf import settings
+        # 2️⃣ Season check
+        if season not in plant.season:
+            continue
 
-def get_recommended_plants(
-    climate_zone_id,
-    plant_type=None,
-    maintenance_level=None
-):
-    """
-    Dynamic plant recommendation based on MongoDB data only
-    """
+        # 3️⃣ Rainfall check
+        if rainfall not in plant.rainfall:
+            continue
 
-    collection = settings.mongo_db["plants"]
+        # 4️⃣ Humidity check
+        if humidity not in plant.humidity:
+            continue
 
-    # Mandatory filter
-    query = {
-        "climate_zone_id": int(climate_zone_id)
-    }
+        # 5️⃣ Sunlight check
+        if sunlight not in plant.sunlight:
+            continue
 
-    # Optional filters (STRING based)
-    if plant_type:
-        query["plant_type"] = plant_type.lower()
+        recommended.append(plant.name)
 
-    if maintenance_level:
-        query["maintenance_level"] = maintenance_level.lower()
-
-    plants = collection.find(query, {"_id": 0})
-
-    return list(plants)
+    return recommended
