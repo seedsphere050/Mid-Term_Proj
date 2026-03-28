@@ -23,6 +23,8 @@ urlpatterns = [
     path('api/auth/', include('accounts.urls')),
     path('api-auth/', include('rest_framework.urls')), 
     path('api/recommend/', include('recommendations.urls')),
+    path("api/", include("encyclopedia.urls")),
+    path('api/forget-pass/', include('forget_pass.urls')),
  # <- This enables login in DRF UI
 ]
 
