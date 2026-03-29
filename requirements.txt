@@ -1,0 +1,11 @@
+django==6.0
+django-cors-headers>=4.3.1
+pymongo==3.12.3
+dnspython>=2.4.2
+tensorflow>=2.15.0
+pillow>=10.0.0
+numpy>=1.24.0
+PyJWT>=2.8.0
+bcrypt>=4.1.2
+python-dotenv>=1.0.0
+opencv-python>=4.8.0

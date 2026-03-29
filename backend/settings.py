@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'accounts', 
     'encyclopedia',
     'forget_pass',
-
+    'disease',
+    'twin',
+    'care_reminders',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +94,15 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+MONGO_URI = "mongodb://localhost:27017/"
+MONGO_DB_NAME = "Seed"
 
+from pymongo import MongoClient
+
+mongo_client = MongoClient(MONGO_URI)
+
+# ✅ MAKE THIS UPPERCASE
+MONGO_DB = mongo_client[MONGO_DB_NAME]
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

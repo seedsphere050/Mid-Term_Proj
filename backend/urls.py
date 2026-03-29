@@ -25,6 +25,9 @@ urlpatterns = [
     path('api/recommend/', include('recommendations.urls')),
     path("api/", include("encyclopedia.urls")),
     path('api/forget-pass/', include('forget_pass.urls')),
+    path("api/", include("disease.urls")),
+    path('api/care/', include('care_reminders.urls')),
+    path('api/twin/', include('twin.urls')),
  # <- This enables login in DRF UI
 ]
 
