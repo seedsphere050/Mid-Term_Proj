@@ -28,6 +28,8 @@ urlpatterns = [
     path("api/", include("disease.urls")),
     path('api/care/', include('care_reminders.urls')),
     path('api/twin/', include('twin.urls')),
+    path('api/tips/', include('tips.urls')),
+
  # <- This enables login in DRF UI
 ]
 

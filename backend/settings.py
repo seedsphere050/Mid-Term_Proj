@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'disease',
     'twin',
     'care_reminders',
+    'tips',
+
 ]
 
 MIDDLEWARE = [
